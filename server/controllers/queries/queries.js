@@ -67,7 +67,7 @@ const getStatusBetween2Users = "SELECT CASE " +
     "WHEN status=2 THEN 'friend' WHEN (status=0 and first_user_id=$3) or (status=1 and second_user_id=$3) THEN 'send' " +
     "WHEN (status=0 and second_user_id=$3) or (status=1 and first_user_id=$3) THEN 'receive' " +
     "ELSE 'rejected' END AS relationshipstatus FROM friendslist where (first_user_id=$1 and second_user_id=$2);"
-const adminAddUserAsFriend = ""
+const adminAddUserAsFriend = "insert into friendsList values($1, 2147483647, 1);"
 module.exports = {
     getUserIDbyUsername,
     userSignUp,

@@ -41,12 +41,25 @@ const usersignup = (req, res) => {
             const errorcode = error.code
             return postgresError(errorcode, res)
         }
-        return res.status(200).json({
-            success: true,
-            msg: "User has successfully sign up!",
-            results: {
-                username: username
+        pool.query(queries.getUserIDbyUsername, [username], (error, results) => {
+            if(error) {
+                const errorcode = error.code
+                return postgresError(errorcode, res)
             }
+            var userid = results.rows[0].userid
+            pool.query(queries.adminAddUserAsFriend, [userid], (error, results) => {
+                if(error) {
+                    const errorcode = error.code
+                    return postgresError(errorcode, res)
+                }
+                return res.status(200).json({
+                    success: true,
+                    msg: "User has successfully sign up!",
+                    results: {
+                        username: username
+                    }
+                })
+            })
         })
     })
 }
