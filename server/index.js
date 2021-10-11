@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const db = require('./db/db')
@@ -6,7 +7,7 @@ const router = require('./router/router')
 const secureRouter = require('./router/secure-router')
 const passport = require('passport');
 const app = express()
-const apiPort = 8000
+const apiPort = process.env.PORT || 8000
 const verifyJWT = require('./auth/jwtverification')
 require('./auth/auth');
 
