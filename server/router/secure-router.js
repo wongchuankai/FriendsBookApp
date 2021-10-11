@@ -42,5 +42,6 @@ securerouter.post('/getStatusBetween2Users', friendsController.getStatusBetween2
 securerouter.post('/getUserIDbyUsername', friendsController.getUserIDbyUsername)
 securerouter.post('/retrievePublicPrivatePostsByUser', FeedController.retrievePublicPrivatePostsByUser)
 securerouter.post('/retrievePrivatePostsByUser', FeedController.retrievePrivatePostsByUser)
+securerouter.post('/retrieveProfilePostsUser', FeedController.retrieveProfilePostsUser)
 
 module.exports = securerouter;

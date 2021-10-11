@@ -120,6 +120,31 @@ const retrievePrivatePostsByUser = (req, res) => {
     })
 }
 
+const retrieveProfilePostsUser = (req, res) => {
+    const body = req.body
+    const myusername = body.myusername
+    const visitingusername = body.visitingusername
+    const myuserid = body.myuserid
+    if (myusername == "" || visitingusername === "" || myuserid === null) {
+        return res.status(400).json({
+            success: false,
+            msg: "Username, userid option cannot be blank",
+            results: []
+        })
+    }
+    pool.query(queries.retrieveProfilePostsUser, [myusername, visitingusername, myuserid], (error, results) => {
+        if(error) {
+            const errorcode = error.code
+            return postgresError(errorcode, res)
+        }
+        return res.status(200).json({
+            success: true,
+            msg: "Posts retrieved.",
+            results: results.rows
+        })
+    })
+}
+
 const retrievePublicPrivatePostsByUser = (req, res) => {
     const body = req.body
     const username = body.username
@@ -198,5 +223,6 @@ module.exports = {
     userUnlikePost,
     retrievePostsByUser,
     retrievePublicPrivatePostsByUser,
-    retrievePrivatePostsByUser
+    retrievePrivatePostsByUser,
+    retrieveProfilePostsUser
 }

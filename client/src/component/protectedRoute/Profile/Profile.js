@@ -79,9 +79,11 @@ function Profile() {
     useEffect(()=> {
         if(loadPosts) {
             const data = {
-                username: username
+                myusername: JWTLocalStorage.getParsedUserData().username,
+                visitingusername: username,
+                myuserid: JWTLocalStorage.getParsedUserData().userid
             }
-            apis.retrievePostsByUser(data).then(res=> {
+            apis.retrieveProfilePostsUser(data).then(res=> {
                 setPosts(res.data.results)
             }).catch(error=> {
                 console.log(error.response)

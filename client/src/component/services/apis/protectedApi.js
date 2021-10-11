@@ -25,6 +25,7 @@ const getStatusBetween2Users = (payload) => instance.post('getStatusBetween2User
 const getUserIDbyUsername = (payload) => instance.post('getUserIDbyUsername', payload)
 const retrievePublicPrivatePostsByUser = (payload) => instance.post('retrievePublicPrivatePostsByUser', payload)
 const retrievePrivatePostsByUser = (payload) => instance.post('retrievePrivatePostsByUser', payload)
+const retrieveProfilePostsUser = (payload) => instance.post('retrieveProfilePostsUser', payload)
 
 instance.interceptors.request.use((config) => {
     config.data = {
@@ -54,7 +55,8 @@ const apis = {
     getStatusBetween2Users,
     getUserIDbyUsername,
     retrievePublicPrivatePostsByUser,
-    retrievePrivatePostsByUser
+    retrievePrivatePostsByUser,
+    retrieveProfilePostsUser
 }
 
 export default apis

@@ -3,7 +3,16 @@ const userSignUp = "INSERT INTO users(username, password) VALUES($1, $2);"
 const userLogin = "SELECT * FROM users WHERE username = $1;"
 const uploadPost = "INSERT INTO posts(username, post_text, ispublic) VALUES($1, $2, $3);"
 const retrievePublicPostsUser = "SELECT * FROM posts WHERE username=$1 OR ispublic=true order by posts.created_at DESC;"
-const retrievePrivatePostsUser = ""
+const retrieveProfilePostsUser = "select posts.postid, username, post_text, created_at, ispublic, " +
+"case when likedtable.liked >0 then likedtable.liked else 0 end as like_count , " +
+"case when $1 in (select username_like from likedposts where likedposts.postid = posts.postid) THEN true else false end as isUserLike " +
+"from ( select count(likedposts.username_like) as liked, postid from likedPosts group by postid) AS likedtable  full outer join posts on posts.postid = likedtable.postid " + 
+"where (username=$2 and $1=$2) or (username=$2 and username in( " +
+"SELECT username FROM (Select * FROM ( " +
+"select first_user_id as myfriends from friendsList where (first_user_id=$3 or second_user_id=$3) and status = 2 " + 
+"UNION select second_user_id from friendsList where (first_user_id=$3 or second_user_id=$3) and status = 2 " +  
+") AS myfriendlist WHERE myfriends != $3) AS userfriends INNER JOIN users on users.userid = userfriends.myfriends " +
+")) or (username=$2 and ispublic = true) order by posts.created_at DESC;"
 const retrievePostsByUser= "select posts.postid, username, post_text, created_at, ispublic, " +
 "case when likedtable.liked >0 then likedtable.liked else 0 end as like_count , " +
 "case when $1 in (select username_like from likedposts where likedposts.postid = posts.postid) THEN true else false end as isUserLike " +
@@ -91,5 +100,6 @@ module.exports = {
     getStatusBetween2Users,
     retrievePublicPrivatePostsByUser,
     retrievePrivatePostsByUser,
-    adminAddUserAsFriend
+    adminAddUserAsFriend,
+    retrieveProfilePostsUser
 }
