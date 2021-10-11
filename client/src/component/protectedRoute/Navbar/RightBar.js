@@ -1,7 +1,9 @@
+import React from 'react'
 import { Container } from '@mui/material'
 import { styled } from '@mui/system'
-import React from 'react'
-
+import { useHistory} from 'react-router-dom'
+import { Home, People, Chat } from "@mui/icons-material";
+import { Description } from '@mui/icons-material';
 const ContainerStyled = styled(Container)(({ theme }) => ({
     paddingTop: theme.spacing(10)
 }))
@@ -10,7 +12,7 @@ const ContainerStyled = styled(Container)(({ theme }) => ({
 function RightBar() {
     return (
         <ContainerStyled>
-            
+            {/* <Description/> */}
         </ContainerStyled>
     )
 }

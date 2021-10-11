@@ -7,6 +7,8 @@ import Feed from '../Home/Feed/Feed'
 import FriendsList from './FriendsList/FriendsList';
 import { makeStyles } from '@mui/styles'
 import Profile from '../Profile/Profile';
+import Userguide from './Userguide/Userguide';
+import Chatroom from './Chatroom/Chatroom';
 
 const useStyles = makeStyles((theme) => ({
     rightGrid: {
@@ -28,6 +30,12 @@ function Home({setLoading, content}) {
             }
             {
                 content === "Friendslist" && <Grid item sm={6} xs={10}><FriendsList setLoading={setLoading}/></Grid>
+            }
+            {
+                content === "Chatroom" && <Grid item sm={6} xs={10}><Chatroom setLoading={setLoading}/></Grid>
+            }
+            {
+                content === "Userguide" && <Grid item sm={6} xs={10}><Userguide setLoading={setLoading}/></Grid>
             }
             {
                 content === "Profile" && <Grid item sm={6} xs={10}><Profile setLoading={setLoading}/></Grid>

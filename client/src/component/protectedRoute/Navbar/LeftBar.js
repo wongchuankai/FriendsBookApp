@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Container, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material'
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles'
-import { Home, People, Chat } from "@mui/icons-material";
+import { Home, People, Chat, Description } from "@mui/icons-material";
 
 // import InboxIcon from '@mui/icons-material/Inbox';
 // import DraftsIcon from '@mui/icons-material/Drafts';
@@ -59,6 +59,10 @@ function LeftBar() {
         
     }
 
+    const goToUserGuideHandler = () => {
+        history.push('/userguide')
+        
+    }
     return (
         <Box className={classes.container}>
             <nav aria-label="main left navbar">
@@ -84,7 +88,15 @@ function LeftBar() {
                         <ListItemIcon>
                             <Chat/>
                         </ListItemIcon>
-                        <ListItemText primary="Chat room" className={classes.tabsIcon}/>
+                        <ListItemText primary="Chat Room" className={classes.tabsIcon}/>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton onClick={goToUserGuideHandler}>
+                        <ListItemIcon>
+                            <Description/>
+                        </ListItemIcon>
+                        <ListItemText primary="User Guide" className={classes.tabsIcon}/>
                     </ListItemButton>
                 </ListItem>
                 </List>

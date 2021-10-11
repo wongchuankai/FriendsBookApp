@@ -8,6 +8,8 @@ function ProtectedRoute({setLoading}) {
         <Switch>
             <Route exact path="/"> <Home content="Feed" setLoading={setLoading}/> </Route> 
             <Route exact path="/friends-list"> <Home content="Friendslist" setLoading={setLoading}/> </Route> 
+            <Route exact path="/chatroom"> <Home content="Chatroom" setLoading={setLoading}/> </Route> 
+            <Route exact path="/userguide"> <Home content="Userguide" setLoading={setLoading}/> </Route> 
             <Route path="/profile/:username"> <Home content="Profile" setLoading={setLoading}/> </Route> 
             <Redirect from="/login" to="/"/>
             <Redirect from="/signup" to="/"/>
