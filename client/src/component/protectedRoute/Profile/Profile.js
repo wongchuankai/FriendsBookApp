@@ -5,7 +5,7 @@ import JWTLocalStorage from '../../services/JWTLocalStorage/JWTLocalStorage'
 import apis from '../../services/apis/protectedApi'
 import {  makeStyles } from '@mui/styles'
 import { Form, Card, Button, Row, Col } from 'react-bootstrap'
-import defaultProfilePic from '../../../images/static/profilepic.jpg'
+import defaultProfilePic from '../../../images/static/default_profile_pic.png'
 import Post from '../Home/Post/Post'
 import Friend from './Friend'
 

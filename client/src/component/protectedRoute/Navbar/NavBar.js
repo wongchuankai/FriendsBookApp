@@ -7,6 +7,7 @@ import {  makeStyles } from '@mui/styles'
 import { alpha } from '@mui/system'
 import JWTLocalStorage from '../../services/JWTLocalStorage/JWTLocalStorage';
 import apis from '../../services/apis/protectedApi';
+import defaultProfilePic from '../../../images/static/default_profile_pic.png'
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -184,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
                           <Avatar className={classes.avatar}
                             alt="Remy Sharp"
                             // onClick={goToProfile}
-                            src="https://images.pexels.com/photos/8647814/pexels-photo-8647814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                            src={defaultProfilePic}
                           />
                         </a>
                         <Dropdown>

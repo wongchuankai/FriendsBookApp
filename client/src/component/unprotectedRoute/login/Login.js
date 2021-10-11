@@ -76,6 +76,11 @@ const RightSide = ({setOpenSnackBar, setLoading}) => {
             })
         }
     }
+
+    const goToSignUp = () => {
+        history.push('/signup')
+    }
+
     return <Container>
         <Box component={Link} to={'/signup'} sx={{display:'flex', justifyContent: 'end', paddingBottom: '100px', textDecoration: 'none'}}>
             Haven't sign up? Click here to Sign Up!
@@ -105,9 +110,14 @@ const RightSide = ({setOpenSnackBar, setLoading}) => {
                     We'll never share your password with anyone else.
                     </Form.Text>
                 </Form.Group>
-                    <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                    <Row className="mb-3" style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
                         <Button variant="primary" type="submit">
                             Login
+                        </Button>
+                    </Row>
+                    <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                        <Button variant="secondary" onClick={goToSignUp}>
+                            Sign Up
                         </Button>
                     </Row>
                 {/* </Row> */}

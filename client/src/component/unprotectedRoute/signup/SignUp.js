@@ -36,6 +36,7 @@ const LeftSide = () => {
 }
 
 const RightSide = () => {
+    let history = useHistory()
     const [ openSnackBar, setOpenSnackBar ] = useState({
         open: false, message: "", severity: ""
     })
@@ -74,7 +75,10 @@ const RightSide = () => {
             })
         }
     }
-
+    
+    const goToLoginPage = () => {
+        history.push('/login')
+    }
     return <Container>
         <Box component={Link} to={'/login'} sx={{display:'flex', justifyContent: 'end', paddingBottom: '100px', textDecoration: 'none'}}>
             Already Sign Up? Click here to login!
@@ -104,9 +108,14 @@ const RightSide = () => {
                     We'll never share your password with anyone else.
                     </Form.Text>
                 </Form.Group>
-                <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                <Row className="mb-3" style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
                     <Button variant="primary" type="submit">
                         Sign Up
+                    </Button>
+                </Row>
+                <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                    <Button variant="secondary" onClick={goToLoginPage}>
+                        Login
                     </Button>
                 </Row>
             </Form>
