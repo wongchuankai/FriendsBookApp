@@ -175,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
                         />
                         </div>
                         <Search className={classes.searchIcon} open={open} onClick={handleClick}/>
-                        <Badge className={classes.badge} badgeContent={4} color="error">
+                        <Badge className={classes.badge} badgeContent={0} color="error">
                             <Mail/>
                         </Badge>
                         <Badge className={classes.badge} badgeContent={countFriendRequest} color="error">
