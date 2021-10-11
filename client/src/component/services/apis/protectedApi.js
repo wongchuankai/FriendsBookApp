@@ -1,7 +1,8 @@
 import axios from 'axios'
 import JWTLocalStorage from '../JWTLocalStorage/JWTLocalStorage'
+require('dotenv').config()
 
-const baseURL = "http://localhost:8000/api/secure/"
+const baseURL = process.env.NODE_ENV === "production" ? process.env.REACT_APP_SERVER_URI_SECURE : "http://localhost:8000/api/secure/"
 
 const instance = axios.create({
     baseURL: baseURL
