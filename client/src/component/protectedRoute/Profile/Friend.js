@@ -12,8 +12,8 @@ function Friend({username, friendUserID, setLoadFriendsList}) {
         setLoadFriendsList(true)
     }
     return (
-        <Card style={{ width: '15rem', marginRight: "5px", marginBottom: "10px", cursor: "pointer"}} onClick={onClickFriend}>
-            <Card.Img variant="top" src={defaultprofilepic} style={{height: "150px", maxWidth: "200px", marginLeft: "auto", marginRight: "auto"}}/>
+        <Card style={{ width: '13rem', marginRight: "20px", marginBottom: "15px", cursor: "pointer"}} onClick={onClickFriend}>
+            <Card.Img variant="top" src={defaultprofilepic} style={{height: "150px", marginLeft: "auto", marginRight: "auto"}}/>
             <Card.Body>
                 <Card.Title style={{textAlign:"center"}}>{username}</Card.Title>
             </Card.Body>

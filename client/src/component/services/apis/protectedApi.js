@@ -22,6 +22,8 @@ const findUserFriends = (payload) => instance.post('findUserFriends', payload)
 const findUserFriendsByUsername = (payload) => instance.post('findUserFriendsByUsername', payload)
 const getStatusBetween2Users = (payload) => instance.post('getStatusBetween2Users', payload)
 const getUserIDbyUsername = (payload) => instance.post('getUserIDbyUsername', payload)
+const retrievePublicPrivatePostsByUser = (payload) => instance.post('retrievePublicPrivatePostsByUser', payload)
+const retrievePrivatePostsByUser = (payload) => instance.post('retrievePrivatePostsByUser', payload)
 
 instance.interceptors.request.use((config) => {
     config.data = {
@@ -49,7 +51,9 @@ const apis = {
     findUserFriends,
     findUserFriendsByUsername,
     getStatusBetween2Users,
-    getUserIDbyUsername
+    getUserIDbyUsername,
+    retrievePublicPrivatePostsByUser,
+    retrievePrivatePostsByUser
 }
 
 export default apis

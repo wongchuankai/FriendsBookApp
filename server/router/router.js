@@ -2,6 +2,7 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const usersAccountController = require('../controllers/usersAccountController')
 const friendsController = require('../controllers/friendsController')
+const FeedController = require('../controllers/FeedController')
 const router = express.Router()
 const passport = require('passport');
 require('dotenv').config()
@@ -36,13 +37,5 @@ router.post('/login',
         )(req, res, next);
     }
 )
-router.post('/findUserFriends', friendsController.findUserFriends)
-router.post('/getPeopleYouMayKnow', friendsController.getPeopleYouMayKnow)
-router.post('/findUserFriendsAndRequest', friendsController.findUserFriendsAndRequest)
-router.post('/sendFriendRequest', friendsController.sendFriendRequest)
-router.post('/getFriendRequestToUser', friendsController.getFriendRequestToUser)
-router.post('/getFriendRequestFromUser', friendsController.getFriendRequestFromUser)
-router.post('/acceptFriendRequest', friendsController.acceptFriendRequest)
-router.post('/getStatusBetween2Users', friendsController.getStatusBetween2Users)
 
 module.exports = router

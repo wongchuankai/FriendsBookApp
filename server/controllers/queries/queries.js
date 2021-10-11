@@ -9,6 +9,26 @@ const retrievePostsByUser= "select posts.postid, username, post_text, created_at
 "case when $1 in (select username_like from likedposts where likedposts.postid = posts.postid) THEN true else false end as isUserLike " +
 "from ( select count(likedposts.username_like) as liked, postid from likedPosts group by postid) AS likedtable  full outer join posts on posts.postid = likedtable.postid " + 
 "where username = $1 order by posts.created_at DESC;"
+const retrievePublicPrivatePostsByUser = "select posts.postid, username, post_text, created_at, ispublic, " +
+    "case when likedtable.liked >0 then likedtable.liked else 0 end as like_count , " +
+    "case when $1 in (select username_like from likedposts where likedposts.postid = posts.postid) THEN true else false end as isUserLike " +
+    "from ( select count(likedposts.username_like) as liked, postid from likedPosts group by postid) AS likedtable  full outer join posts on posts.postid = likedtable.postid " + 
+    "where username = $1 or ispublic = true or username in( " +
+    "SELECT username FROM (Select * FROM ( " +
+    "select first_user_id as myfriends from friendsList where (first_user_id=$2 or second_user_id=$2) and status = 2 " + 
+    "UNION select second_user_id from friendsList where (first_user_id=$2 or second_user_id=$2) and status = 2 " +  
+    ") AS myfriendlist WHERE myfriends != $2) AS userfriends INNER JOIN users on users.userid = userfriends.myfriends " +
+    ") order by posts.created_at DESC;"
+const retrievePrivatePostsByUser = "select posts.postid, username, post_text, created_at, ispublic, " +
+"case when likedtable.liked >0 then likedtable.liked else 0 end as like_count , " +
+"case when $1 in (select username_like from likedposts where likedposts.postid = posts.postid) THEN true else false end as isUserLike " +
+"from ( select count(likedposts.username_like) as liked, postid from likedPosts group by postid) AS likedtable  full outer join posts on posts.postid = likedtable.postid " + 
+"where username = $1 or username in( " +
+"SELECT username FROM (Select * FROM ( " +
+"select first_user_id as myfriends from friendsList where (first_user_id=$2 or second_user_id=$2) and status = 2 " + 
+"UNION select second_user_id from friendsList where (first_user_id=$2 or second_user_id=$2) and status = 2 " +  
+") AS myfriendlist WHERE myfriends != $2) AS userfriends INNER JOIN users on users.userid = userfriends.myfriends " +
+") order by posts.created_at DESC;"        
 
 const retrievePublicPostsUser2 = "select posts.postid, username, post_text, created_at, ispublic, " +
 "case when likedtable.liked >0 then likedtable.liked else 0 end as like_count , " +
@@ -68,5 +88,7 @@ module.exports = {
     acceptFriendRequest,
     rejectFriendRequest,
     retrievePostsByUser,
-    getStatusBetween2Users
+    getStatusBetween2Users,
+    retrievePublicPrivatePostsByUser,
+    retrievePrivatePostsByUser
 }

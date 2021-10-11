@@ -17,9 +17,7 @@ function UnknownFriend({username, friendUserID, setLoadFriendsList}) {
             requestSender: JWTLocalStorage.getParsedUserData().userid,
             requestReceiver: friendUserID
         }
-        console.log(data)
         apis.sendFriendRequest(data).then(res => {
-            console.log(res.data)
             setLoadFriendsList(true)
         }).catch(error => {
             console.log(error.response)

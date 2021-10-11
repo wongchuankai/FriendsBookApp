@@ -75,7 +75,6 @@ const getFriendRequestToUser = (req, res) => {
             const errorcode = error.code
             return postgresError(errorcode, res)
         }
-        console.log(results.rows)
         return res.status(200).json({
             success: true,
             msg: `Find friend requests to userid: ${userid}`,
@@ -100,7 +99,6 @@ const getFriendRequestFromUser = (req, res) => {
             const errorcode = error.code
             return postgresError(errorcode, res)
         }
-        console.log(results.rows)
         return res.status(200).json({
             success: true,
             msg: `Find friend requests to userid: ${userid}`,
@@ -147,7 +145,6 @@ const getUserIDbyUsername = (req, res) => {
             const errorcode = error.code
             return postgresError(errorcode, res)
         }
-        console.log(results.rows)
         return res.status(200).json({
             success: true,
             msg: `return userid`,

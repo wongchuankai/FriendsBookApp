@@ -10,14 +10,6 @@ const instance = axios.create({
 const signup = (payload) => instance.post('signup', payload)
 const login = (payload) => instance.post('login', payload)
 
-// instance.interceptors.response.use((config) => {
-//     console.log(config.data)
-//     console.log(JWTLocalStorage.getToken())
-//     return config;
-// }, (error) => {
-//     return Promise.reject(error)
-// })
-
 const apis = {
     signup,
     login

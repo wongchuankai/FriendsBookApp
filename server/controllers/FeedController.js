@@ -95,6 +95,55 @@ const retrievePublicPostsUser = (req, res) => {
     })
 }
 
+
+const retrievePrivatePostsByUser = (req, res) => {
+    const body = req.body
+    const username = body.username
+    const userid = body.userid
+    if (username == "" || userid === null) {
+        return res.status(400).json({
+            success: false,
+            msg: "Username, userid option cannot be blank",
+            results: []
+        })
+    }
+    pool.query(queries.retrievePrivatePostsByUser, [username, userid], (error, results) => {
+        if(error) {
+            const errorcode = error.code
+            return postgresError(errorcode, res)
+        }
+        return res.status(200).json({
+            success: true,
+            msg: "Posts retrieved.",
+            results: results.rows
+        })
+    })
+}
+
+const retrievePublicPrivatePostsByUser = (req, res) => {
+    const body = req.body
+    const username = body.username
+    const userid = body.userid
+    if (username == "" || userid === null) {
+        return res.status(400).json({
+            success: false,
+            msg: "Username, userid option cannot be blank",
+            results: []
+        })
+    }
+    pool.query(queries.retrievePublicPrivatePostsByUser, [username, userid], (error, results) => {
+        if(error) {
+            const errorcode = error.code
+            return postgresError(errorcode, res)
+        }
+        return res.status(200).json({
+            success: true,
+            msg: "Posts retrieved.",
+            results: results.rows
+        })
+    })
+}
+
 const userLikePost = (req, res) => {
     const body = req.body
     const username = body.username
@@ -147,5 +196,7 @@ module.exports = {
     retrievePublicPostsUser,
     userLikePost,
     userUnlikePost,
-    retrievePostsByUser
+    retrievePostsByUser,
+    retrievePublicPrivatePostsByUser,
+    retrievePrivatePostsByUser
 }

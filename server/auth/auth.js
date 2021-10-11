@@ -13,7 +13,6 @@ function comparePassword(password, hashedPassword) {
 passport.use(
     'login',
     new localStrategy((username, password, done) => {
-        // console.log("WH HERE")
         pool.query(queries.userLogin, [username], (error, results) => {
             if(error) {
                 return done(null, false, { success: false, message: 'error occured when querying database' });

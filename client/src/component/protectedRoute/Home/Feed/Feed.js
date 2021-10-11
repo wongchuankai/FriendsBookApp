@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Container, Grid, Alert, Snackbar } from '@mui/material'
+import { Container, Grid, Alert, Snackbar, FormControl, Select, MenuItem, FormHelperText } from '@mui/material'
 import { useHistory, Redirect } from 'react-router-dom'
 import JWTLocalStorage from '../../../services/JWTLocalStorage/JWTLocalStorage'
 import apis from '../../../services/apis/protectedApi'
@@ -31,22 +31,47 @@ function Feed({setLoading}) {
     })
     const [ posts, setPosts ] = useState([])
     const [ imagePost, setImagePost ] = useState()
+    const [ filterOption, setFilterOption ] = useState("Public")
     useEffect(() => {
         if(loadFeed) {
             const username =  JWTLocalStorage.getParsedUserData().username
-            apis.getPublicPostWithUser( {
-                username
-            }).then(res => {
-                const data = res.data
-                const posts = data.results
-                console.log(posts)
-                setPosts(posts)
-            }).catch(err=> {
-
-            })
+            const userid =  JWTLocalStorage.getParsedUserData().userid
+            if( filterOption === "Public") {
+                apis.retrievePublicPrivatePostsByUser( {
+                    username, userid
+                }).then(res => {
+                    const data = res.data
+                    const posts = data.results
+                    setPosts(posts)
+                }).catch(err=> {
+    
+                })
+            }
+            if( filterOption === "Private") {
+                apis.retrievePrivatePostsByUser( {
+                    username, userid
+                }).then(res => {
+                    const data = res.data
+                    const posts = data.results
+                    setPosts(posts)
+                }).catch(err=> {
+    
+                })
+            }
+            if( filterOption === "User") {
+                apis.retrievePostsByUser( {
+                    username, userid
+                }).then(res => {
+                    const data = res.data
+                    const posts = data.results
+                    setPosts(posts)
+                }).catch(err=> {
+    
+                })
+            }
             setLoadFeed(false)
         }
-    }, [loadFeed])
+    }, [loadFeed, filterOption])
     const closeSnackBar = () => {
         setPostResult({
             open: false, severity: "", message: ""
@@ -56,7 +81,6 @@ function Feed({setLoading}) {
         setImagePost(URL.createObjectURL(event.target.files[0]))
     }
     const publicOptionHandler = (event) => {
-        console.log(event.target.value)
         if(event.target.value === "public") {
             setPublic("public")
         } else {
@@ -78,7 +102,6 @@ function Feed({setLoading}) {
                 })
             }).catch(err=> {
                 const errorData = err.response
-                console.log(errorData)
                 if (errorData.msg === "Invalid Token" || errorData.msg === "A token is required for authentication") {
                     JWTLocalStorage.clearToken()
                     window.location.href()   
@@ -93,13 +116,19 @@ function Feed({setLoading}) {
             window.location.href()
         }
     }
+
+    const onChangeFilter = (event) => {
+        setPosts([])
+        setFilterOption(event.target.value)
+        setLoadFeed(true)
+    }
     return (
         <Container className={classes.container}>
             <Card className="new-status-section">
                 <Card.Body>
                     <Card.Title className="mb-3">What is on your mind?</Card.Title>
                     <Form onSubmit={(event) => postNewHandler(event)}>
-                        <Form.Control required ref={userPost} className="mb-3" placeholder="Write your story here"/>
+                        <Form.Control required ref={userPost} className="mb-3" placeholder="Write your story here" rows={2} as="textarea"/>
                         <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Upload photo here</Form.Label>
                                 <Col sm={7} className="mb-3">
@@ -122,6 +151,21 @@ function Feed({setLoading}) {
                     </Form>
                 </Card.Body>
             </Card>
+            <div className="new-status-section filter">
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <Select
+                    value={filterOption}
+                    onChange={onChangeFilter}
+                    // displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                    <MenuItem value={"Public"}>Public</MenuItem>
+                    <MenuItem value={"Private"}>Private</MenuItem>
+                    <MenuItem value={"User"}>My Post Only</MenuItem>
+                    </Select>
+                    <FormHelperText>Filter posts</FormHelperText>
+                </FormControl>
+            </div>
             <div>
                 {posts.length > 0 && posts.map((post) => {
                     return <Post key={post.postid} postid={post.postid} postusername={post.username} postText={post.post_text} likeCount={post.like_count} isUserLike={post.isuserlike} createdAt={post.created_at} setLoadFeed={setLoadFeed}/>

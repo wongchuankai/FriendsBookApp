@@ -39,7 +39,6 @@ function FriendsList() {
                 userid: JWTLocalStorage.getParsedUserData().userid
             }
             apis.getFriendRequestToUser(data).then(res=> {
-                console.log(res.data)
                 setFriendsRequestList(res.data.results)
             }).catch(error => {
                 console.log(error.response)
@@ -54,7 +53,6 @@ function FriendsList() {
                 userid: JWTLocalStorage.getParsedUserData().userid
             }
             apis.getPeopleYouMayKnow(data).then(res=> {
-                console.log(res.data)
                 setPeopleYouMayKnow(res.data.results)
             }).catch(error => {
                 console.log(error.response)

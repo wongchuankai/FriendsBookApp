@@ -3,6 +3,7 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typo
 import { ThumbUp } from '@mui/icons-material';
 import {  makeStyles } from '@mui/styles'
 import moment from 'moment'
+import { useHistory } from 'react-router';
 import apis from '../../../services/apis/protectedApi';
 import JWTLocalStorage from '../../../services/JWTLocalStorage/JWTLocalStorage';
 
@@ -22,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Post({postid, postusername, postText, likeCount, isUserLike, createdAt, setLoadFeed}) {
+    let history = useHistory()
     const classes = useStyles()
     const likeHandler = () => {
       const data = {
         postid, username: JWTLocalStorage.getParsedUserData().username
       }
       apis.userlikepost(data).then(res=> {
-        console.log(res)
         setLoadFeed(true)
       }).catch(error => {
         console.log(error)
@@ -40,11 +41,14 @@ function Post({postid, postusername, postText, likeCount, isUserLike, createdAt,
         postid, username: JWTLocalStorage.getParsedUserData().username
       }
       apis.userUnlikePost(data).then(res=> {
-        console.log(res)
         setLoadFeed(true)
       }).catch(error => {
         console.log(error)
       })
+    }
+
+    const goToProfile = (postusername) => {
+      history.push('/profile/' + postusername)
     }
 
     return (
@@ -57,6 +61,8 @@ function Post({postid, postusername, postText, likeCount, isUserLike, createdAt,
         }
         title={postusername}
         subheader={moment(createdAt).fromNow()}//"September 14, 2016"
+        style={{cursor: "pointer"}}
+        onClick={()=>goToProfile(postusername)}
       />
       <CardMedia
         component="img"

@@ -17,9 +17,7 @@ function FriendsRequest({username, friendUserID, setLoadFriendsList}) {
             requestSender: friendUserID,
             requestReceiver: JWTLocalStorage.getParsedUserData().userid
         }
-        console.log(data)
         apis.acceptFriendRequest(data).then(res => {
-            console.log(res.data)
             setLoadFriendsList(true)
         }).catch(error => {
             console.log(error.response)
@@ -31,9 +29,7 @@ function FriendsRequest({username, friendUserID, setLoadFriendsList}) {
             requestSender: friendUserID,
             requestReceiver: JWTLocalStorage.getParsedUserData().userid
         }
-        console.log(data)
         apis.rejectFriendRequest(data).then(res => {
-            console.log(res.data)
             setLoadFriendsList(true)
         }).catch(error => {
             console.log(error.response)

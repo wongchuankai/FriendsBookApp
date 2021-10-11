@@ -46,7 +46,6 @@ function Profile() {
             }
             apis.getUserIDbyUsername(data).then( res => {
                 const result = res.data.results
-                console.log(result)
                 if(result.length === 0) {
                     setValidUser(false)
                 } else {
@@ -59,7 +58,6 @@ function Profile() {
                     setProfileUserID(result[0].userid)
                     if(data.userid1 !== data.userid2) {
                         apis.getStatusBetween2Users(data).then(res=> {
-                            console.log(res.data.results[0])
                             if(res.data.results.length === 0) {
                                 setUserStatus("notfriend")
                             } else{
@@ -84,7 +82,6 @@ function Profile() {
                 username: username
             }
             apis.retrievePostsByUser(data).then(res=> {
-                console.log(res.data)
                 setPosts(res.data.results)
             }).catch(error=> {
                 console.log(error.response)
@@ -100,7 +97,6 @@ function Profile() {
                 username: username
             }
             apis.findUserFriendsByUsername(data).then(res=> {
-                console.log(res.data)
                 setFriendsList(res.data.results)
             }).catch(error=> {
                 console.log(error.response)
@@ -131,7 +127,6 @@ function Profile() {
             requestSender: profileUserID,
             requestReceiver: JWTLocalStorage.getParsedUserData().userid
         }
-        console.log(data)
         apis.acceptFriendRequest(data).then(res => {
             setLoadProfile(true)
         }).catch(error => {
@@ -144,7 +139,6 @@ function Profile() {
             requestSender: profileUserID,
             requestReceiver: JWTLocalStorage.getParsedUserData().userid
         }
-        console.log(data)
         apis.rejectFriendRequest(data).then(res => {
             setLoadProfile(true)
         }).catch(error => {

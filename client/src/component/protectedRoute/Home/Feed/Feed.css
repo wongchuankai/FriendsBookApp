@@ -1,3 +1,7 @@
 .new-status-section {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+.filter {
+    display: flex;
+    justify-content: flex-end;
 }
