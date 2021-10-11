@@ -9,6 +9,15 @@ const devConfig = {
     port: process.env.DEV_PORT,
 }
 
-const pool = new Pool(devConfig)
+const productionConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    }               // for heroku
+}
+
+const pool = new Pool(
+    process.env.NODE_ENV === "production" ? productionConfig : devConfig
+)
 
 module.exports = pool
