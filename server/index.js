@@ -29,7 +29,10 @@ app.use(function(err, req, res, next) {
         msg: err.message
     })
   });
-  
+app.get('/', (req, res) => {
+    res.send('server connected to heroku.')
+})  
+
 app.listen(apiPort, () => {
     console.log(`server is running at port ${apiPort}`)
 })
