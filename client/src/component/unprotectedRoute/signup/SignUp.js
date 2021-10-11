@@ -1,6 +1,7 @@
-import React from 'react'
-import { Link } from "react-router-dom";
-import { Container, Grid, Typography } from '@mui/material'
+import React, { useState, useRef } from 'react'
+import { Link, useHistory } from "react-router-dom";
+import apis from '../../services/apis/unprotectedApi'
+import { Container, Grid, Typography, Snackbar, Alert } from '@mui/material'
 import {  makeStyles } from '@mui/styles'
 import signup from '../../../images/static/signup.svg'
 import { Form, Button, Row } from 'react-bootstrap'
@@ -35,6 +36,45 @@ const LeftSide = () => {
 }
 
 const RightSide = () => {
+    const [ openSnackBar, setOpenSnackBar ] = useState({
+        open: false, message: "", severity: ""
+    })
+    const username = useRef("")
+    const password = useRef("")
+
+    const handleCloseSnackBar = () => {
+        setOpenSnackBar({
+            open: false, message: "", severity: ""
+        })
+    }
+    
+    const validateForm = () => {
+        return true
+    }
+    const onSubmitFormHandler = (event) => {
+        event.preventDefault()
+        if(validateForm()) {
+            const data = {
+                username: username.current.value,
+                password: password.current.value
+            }
+            apis.signup(data).then(res => {
+                const data = res.data
+                event.target.reset()
+                setOpenSnackBar({
+                    open: true, message: data.msg, severity: "success"
+                })
+            }).catch(err => {
+                const data = err.response.data
+                event.target.reset()
+                console.log(data)
+                setOpenSnackBar({
+                    open: true, message: data.msg, severity: "error"
+                })
+            })
+        }
+    }
+
     return <Container>
         <Box component={Link} to={'/login'} sx={{display:'flex', justifyContent: 'end', paddingBottom: '100px', textDecoration: 'none'}}>
             Already Sign Up? Click here to login!
@@ -49,15 +89,15 @@ const RightSide = () => {
         </Box>
 
         <Box >
-            <Form className="form">
+            <Form className="form" onSubmit={(event) => onSubmitFormHandler(event)}>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Username"/>
+                    <Form.Control type="text" placeholder="Enter Username" ref={username}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" placeholder="Password" ref={password}/>
                 </Form.Group>
                 <Form.Group className="mb-5">
                     <Form.Text className="text-muted">
@@ -71,6 +111,11 @@ const RightSide = () => {
                 </Row>
             </Form>
         </Box>
+        <Snackbar anchorOrigin={{"vertical":'bottom', "horizontal": 'center'}} open={openSnackBar.open} autoHideDuration={6000} onClose={handleCloseSnackBar}>
+            <Alert onClose={handleCloseSnackBar} severity={openSnackBar.severity} sx={{ width: '100%' }}>
+                {openSnackBar.message}
+            </Alert>
+        </Snackbar>
     </Container>
 }
 function SignUp() {
