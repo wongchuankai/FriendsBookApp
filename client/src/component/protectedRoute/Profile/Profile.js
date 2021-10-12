@@ -19,7 +19,10 @@ const styles = makeStyles((theme) => ({
     },
     profilepicwrapper: {
         paddingLeft: "10px",
-        paddingBottom: "10px"
+        paddingBottom: "10px",
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0'
+        }
     },
     title: {
         paddingLeft: theme.spacing(5),
