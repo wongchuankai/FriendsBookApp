@@ -10,6 +10,12 @@ import { Link, useHistory } from 'react-router-dom'
 import JWTLocalStorage from '../../services/JWTLocalStorage/JWTLocalStorage'
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        [theme.breakpoints.down('sm')]: {
+            backgroundColor: '#264ECA',  
+            minHeight: '100vh'
+        }
+    },
     left: {
         display: 'flex',
         backgroundColor: '#1F41A9',
@@ -136,7 +142,7 @@ function Login({setLoading}) {
     }
 
     return (
-            <Grid container>
+            <Grid container className={classes.container}>
                 <Grid item sm={7} className={classes.left}><LeftSide/></Grid>
                 <Grid item sm={5} xs={12} className={classes.right}><RightSide setOpenSnackBar={setOpenSnackBar} setLoading={setLoading}/></Grid>
                 <Snackbar anchorOrigin={{"vertical":'bottom', "horizontal": 'center'}} open={openSnackBar.open} autoHideDuration={6000} onClose={handleCloseSnackBar}>
