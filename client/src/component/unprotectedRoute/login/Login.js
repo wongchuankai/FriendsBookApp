@@ -15,18 +15,17 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#1F41A9',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        minHeight: '100vh',
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         }
     },
     right: {
         display: 'flex',
-        height: '100vh',
         [theme.breakpoints.down('sm')]: {
             backgroundColor: '#264ECA',
-            color: 'white',
-            height: '100vh'
+            color: 'white',  
+            minHeight: '100vh'
         }
     },
 }));
@@ -115,7 +114,7 @@ const RightSide = ({setOpenSnackBar, setLoading}) => {
                             Login
                         </Button>
                     </Row>
-                    <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                    <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto', paddingBottom: "50px"}}>
                         <Button variant="secondary" onClick={goToSignUp}>
                             Sign Up
                         </Button>

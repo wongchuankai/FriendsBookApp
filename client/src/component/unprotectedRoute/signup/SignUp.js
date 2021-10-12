@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#1F41A9',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        minHeight: '100vh',
         [theme.breakpoints.down('sm')]: {
             display: 'none'
         }
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             backgroundColor: '#264ECA',
             color: 'white',
-            height: '100vh'
+            minHeight: '100vh'
         }
     },
 }));
@@ -113,7 +113,7 @@ const RightSide = () => {
                         Sign Up
                     </Button>
                 </Row>
-                <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto'}}>
+                <Row style={{width: '100px', marginLeft:'auto', marginRight: 'auto', paddingBottom: "50px"}}>
                     <Button variant="secondary" onClick={goToLoginPage}>
                         Login
                     </Button>
