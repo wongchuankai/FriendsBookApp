@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
         position: "sticky",
         top: 0,
+        left: 0,
+        bottom: 0,
+        overflow: 'hidden',
         [theme.breakpoints.up("sm")]: {
             backgroundColor: "#F5F5F5",
             color: "#555",
