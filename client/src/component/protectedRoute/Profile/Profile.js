@@ -17,8 +17,15 @@ const styles = makeStyles((theme) => ({
         width: '12rem',
         height: "150px",
     },
+    profilepicwrapper: {
+        paddingLeft: "10px",
+        paddingBottom: "10px"
+    },
     title: {
-        paddingLeft: "50px"
+        paddingLeft: theme.spacing(5),
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0'
+        }
     },
     padBottom: {
         paddingBottom:"10px"
@@ -158,47 +165,54 @@ function Profile() {
     return (
         <Container fluid className={classes.container}>
             <Container sx={{display: "flex", alignItems: 'center', paddingBottom: "25px"}}>
-                <Card className={classes.profilepic}>
-                    <Card.Img variant="top" src={defaultProfilePic} className={classes.profilepic}/>
-                </Card>
-                <div className={classes.title}>
-                    <Typography variant="h5" className={classes.padBottom}>{username}</Typography>
-                    {
-                        userStatus==="receive" && (
-                            <Container style={{border:"1px solid black", borderRadius: "10px"}}>
-                                <Typography variant="body1">{username} has sent you a friend request</Typography>
-                                <Container className={classes.padBottom} style={{display:"flex", justifyContent:"center"}}>
-                                    <Button onClick={acceptFriendHandler}>Accept</Button>
-                                </Container>
-                                <Container className={classes.padBottom} style={{display:"flex", justifyContent:"center"}}>
-                                    <Button variant="danger" onClick={deleteFriendHandler}>Delete</Button>
-                                </Container>
-                            </Container>
-                        )
-                    }
-                    {
-                        userStatus==="send" && (
-                            <Typography variant="body1">You have sent a friend request.</Typography>
-                        )
-                    }
-                    {
-                        userStatus==="notfriend" && (
-                            <Button onClick={sendFriendRequestHandler}>Add friend</Button>
-                        )
-                    }
-                    {
-                        userStatus==="friend" && (
-                            <Typography variant="body1">Your friend</Typography>
+                <Grid container>
+                    <Grid className={classes.profilepicwrapper}>
+                        <Card>
+                            <Card.Img variant="top" src={defaultProfilePic} className={classes.profilepic}/>
+                        </Card>    
+                    </Grid>
+                    <Grid>
+                        <div className={classes.title}>
+                            <Typography variant="h5" className={classes.padBottom}>{username}</Typography>
+                            {
+                                userStatus==="receive" && (
+                                    <Container style={{border:"1px solid black", borderRadius: "10px"}}>
+                                        <Typography variant="body1">{username} has sent you a friend request</Typography>
+                                        <Container className={classes.padBottom} style={{display:"flex", justifyContent:"center"}}>
+                                            <Button onClick={acceptFriendHandler}>Accept</Button>
+                                        </Container>
+                                        <Container className={classes.padBottom} style={{display:"flex", justifyContent:"center"}}>
+                                            <Button variant="danger" onClick={deleteFriendHandler}>Delete</Button>
+                                        </Container>
+                                    </Container>
+                                )
+                            }
+                            {
+                                userStatus==="send" && (
+                                    <Typography variant="body1">You have sent a friend request.</Typography>
+                                )
+                            }
+                            {
+                                userStatus==="notfriend" && (
+                                    <Button onClick={sendFriendRequestHandler}>Add friend</Button>
+                                )
+                            }
+                            {
+                                userStatus==="friend" && (
+                                    <Typography variant="body1">Your friend</Typography>
 
-                        )
-                    }
-                    {
-                        userStatus==="rejected" && (
-                            <Typography variant="body1">Friend request rejected.</Typography>
+                                )
+                            }
+                            {
+                                userStatus==="rejected" && (
+                                    <Typography variant="body1">Friend request rejected.</Typography>
 
-                        )
-                    }
-                </div>
+                                )
+                            }
+                        </div>
+
+                    </Grid>
+                </Grid>
             </Container>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: "20px" }}>
                 <Tabs value={tabvalue} onChange={tabOnChangeHandler} aria-label="basic tabs example">
