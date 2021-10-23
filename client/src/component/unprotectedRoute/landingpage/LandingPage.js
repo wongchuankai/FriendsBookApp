@@ -30,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
         width:"100%",
         minHeight: "150px"
     },
+    carousel: {
+        [theme.breakpoints.down('md')]: {
+            // marginLeft: "-35px", 
+            // marginTop: "-50px", 
+            height: "500px",
+
+        }
+    },
     imagebutton: {
         // position: "absolute", 
         // left:"50%", 
