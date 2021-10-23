@@ -10,7 +10,9 @@ import { width } from '@mui/system'
 import landingpage1 from '../../../images/static/landingpage1.png'
 import landingpage2 from '../../../images/static/landingpage2.jpg'
 import landingpage3 from '../../../images/static/landingpage3.jpg'
-import feature1 from '../../../images/static/feature1.png'
+import newsfeed from '../../../images/static/newsfeed.png'
+import like from '../../../images/static/like.png'
+import speechbubble from '../../../images/static/speech-bubble.png'
 import { useHistory } from 'react-router'
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -146,7 +148,7 @@ function LandingPage() {
                             <Card sx={{ maxWidth: 300, }}>
                                 <img
                                     className={classes.featureImage}
-                                    src={feature1}
+                                    src={newsfeed}
                                     alt="News Feed"
                                 />
                                 <CardContent>
@@ -164,7 +166,7 @@ function LandingPage() {
                             <Card sx={{ maxWidth: 300 }}>
                                 <img
                                     className={classes.featureImage}
-                                    src={feature1}
+                                    src={like}
                                     alt="News Feed"
                                 />
                                 <CardContent>
@@ -182,7 +184,7 @@ function LandingPage() {
                             <Card sx={{ maxWidth: 300 }}>
                                 <img
                                     className={classes.featureImage}
-                                    src={feature1}
+                                    src={speechbubble}
                                     alt="News Feed"
                                 />
                                 <CardContent>
