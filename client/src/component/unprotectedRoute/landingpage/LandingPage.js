@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     footer: {
         backgroundColor: "#538AB1",
         width:"100%",
-        minHeight: "150px"
+        minHeight: "50px"
+    },
+    smallpaddingTop: {
+        paddingTop: theme.spacing(1)
     },
     carousel: {
         [theme.breakpoints.down('md')]: {
@@ -282,7 +285,9 @@ function LandingPage() {
       <div>You can scroll and see me!</div> */}
             </div>
             <div className={classes.footer}>
-s
+                <Container className={classes.smallpaddingTop}>
+                    ©Chuan Kai- All Rights Reserved
+                </Container>
             </div>
         </div>
     )
